@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="TeamFlow is a real-time project workspace with Kanban boards, role-based access, live sync, and analytics, built to help teams ship faster." />
+    <title>TeamFlow — Plan together. Ship faster.</title>
+    <!-- Display Bold, Script Accent & Condensed Nav Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <!-- BRANDED PAGE PRELOADER -->
+    <div id="page-preloader" class="preloader">
+        <div class="preloader-content">
+            <div class="loader-ring"></div>
+            <div class="preloader-brand">TEAMFLOW</div>
+            <p class="loader-desc">Plan together. Ship faster. Syncing your real-time workspace...</p>
+        </div>
+    </div>
+
+    <!-- LANDING & AUTHENTICATION EXPERIENCE -->
+    <div id="auth-view" class="landing-wrapper hidden">
+        <nav class="landing-nav">
+            <div class="brand-mark hover-grow">TEAMFLOW</div>
+            <div class="landing-nav-links">
+                <a href="#landing-about" class="condensed-link hover-grow">ABOUT</a>
+                <a href="#landing-tech" class="condensed-link hover-grow">STACK</a>
+                <a href="#landing-contact" class="condensed-link hover-grow">CONTACT</a>
+                <button type="button" class="btn-icon-circle theme-toggle-btn" title="Switch Theme">
+                    <span class="theme-icon">☀️</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="hero-grid">
+            <div class="hero-editorial reveal">
+                <span class="hero-eyebrow">PLAN TOGETHER. SHIP FASTER.</span>
+                <h1 class="hero-headline hover-text-scale">
+                    where teams stay<br />
+                    aligned and <span class="script-accent">ship faster</span>
+                </h1>
+                <p class="hero-subcopy">
+                    TeamFlow is a real-time workspace and project management tool for teams that want to move quickly
+                    without losing sight of the plan. It connects the big picture—your roadmap and milestones—with the
+                    daily work of getting tasks done.
+                </p>
+
+                <div class="vivid-tiles">
+                    <div class="vivid-tile tile-cerise hover-lift">
+                        <span class="tile-kicker">01 / BOARDS</span>
+                        <h3 class="hover-grow">KANBAN FLOW</h3>
+                        <p>Move tasks through To Do, In Progress, In Review, and Done with instant analytics.</p>
+                    </div>
+                    <div class="vivid-tile tile-royal hover-lift">
+                        <span class="tile-kicker">02 / TEAMS</span>
+                        <h3 class="hover-grow">ROLE ACCESS</h3>
+                        <p>Owner, Admin, Member, and Viewer roles keep collaboration secure and clear.</p>
+                    </div>
+                    <div class="vivid-tile tile-coral hover-lift">
+                        <span class="tile-kicker">03 / SYNC</span>
+                        <h3 class="hover-grow">LIVE UPDATES</h3>
+                        <p>Every move, update, and conversation appears instantly across every screen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-panel reveal">
+                <div class="auth-card">
+                    <div class="auth-card-header">
+                        <span class="condensed-tag">WORKSPACE ACCESS</span>
+                        <h2 class="hover-grow">Step inside TeamFlow</h2>
+                    </div>
+
+                    <div class="auth-tabs">
+                        <button id="tab-login" class="tab-btn active" type="button">LOG IN</button>
+                        <button id="tab-register" class="tab-btn" type="button">CREATE ACCOUNT</button>
+                    </div>
+
+                    <div id="auth-error" class="alert-error hidden"></div>
+
+                    <form id="login-form" class="auth-form">
+                        <label>EMAIL ADDRESS
+                            <input type="email" id="login-email" required placeholder="you@teamflow.io" />
+                        </label>
+                        <label>PASSWORD
+                            <input type="password" id="login-password" required placeholder="••••••••" />
+                        </label>
+                        <button type="submit" class="btn btn-primary btn-full btn-glow">
+                            ENTER WORKSPACE &rarr;
+                        </button>
+                    </form>
+
+                    <form id="register-form" class="auth-form hidden">
+                        <label>FULL NAME
+                            <input type="text" id="reg-name" required placeholder="Archismaan Kashyap" />
+                        </label>
+                        <label>EMAIL ADDRESS
+                            <input type="email" id="reg-email" required placeholder="you@teamflow.io" />
+                        </label>
+                        <label>PASSWORD
+                            <input type="password" id="reg-password" required minlength="6"
+                                placeholder="Min 6 characters" />
+                        </label>
+                        <button type="submit" class="btn btn-primary btn-full btn-glow">
+                            LAUNCH YOUR TEAM &rarr;
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT & CONTACT SECTION (LANDING PAGE) -->
+        <section id="landing-about" class="about-contact-section reveal">
+            <div class="section-divider-banner">
+                <span class="hero-eyebrow">ABOUT TEAMFLOW</span>
+                <h2 class="app-hero-headline hover-text-scale">
+                    where teams stay aligned<br />
+                    and <span class="script-accent">ship faster.</span>
+                </h2>
+                <p class="hero-subcopy" style="margin-top: 0.85rem;">
+                    Create workspaces for your teams, break initiatives into milestone-driven projects, and track
+                    progress on interactive Kanban boards. Every move, update, and conversation appears instantly for
+                    everyone on the project, so nobody has to refresh the page or ask for a status update.
+                </p>
+            </div>
+
+            <div class="why-grid">
+                <div class="why-card hover-lift">
+                    <span class="tile-kicker" style="color: var(--cerise);">01 / ACCESS CONTROL</span>
+                    <h3 class="hover-grow">Workspaces with the right access for everyone</h3>
+                    <p>Give each team its own workspace and control who can do what. Owner, Admin, Member, and Viewer
+                        roles keep collaboration secure and responsibilities clear.</p>
+                </div>
+                <div class="why-card hover-lift">
+                    <span class="tile-kicker" style="color: var(--coral-soft);">02 / WORKFLOW</span>
+                    <h3 class="hover-grow">A Kanban workflow that fits how you work</h3>
+                    <p>Move tasks through To Do, In Progress, In Review, and Done. Set priorities from Low to Urgent,
+                        add due dates, and assign owners so nothing slips through.</p>
+                </div>
+                <div class="why-card hover-lift">
+                    <span class="tile-kicker" style="color: var(--success);">03 / REAL-TIME</span>
+                    <h3 class="hover-grow">Live sync across every screen</h3>
+                    <p>Board changes, task updates, and discussions reach your whole team the moment they happen, with
+                        no manual refreshing.</p>
+                </div>
+                <div class="why-card hover-lift">
+                    <span class="tile-kicker" style="color: var(--cerise);">04 / INSIGHTS</span>
+                    <h3 class="hover-grow">Analytics that flag problems early</h3>
+                    <p>See completion rates, overdue tasks, and workload distribution as they change, so you can spot
+                        bottlenecks before they delay delivery.</p>
+                </div>
+                <div class="why-card hover-lift">
+                    <span class="tile-kicker" style="color: var(--coral-soft);">05 / FOCUS</span>
+                    <h3 class="hover-grow">A clean interface built for focus</h3>
+                    <p>Light and dark themes, high-contrast design, and full keyboard navigation keep the interface
+                        clear and clutter-free.</p>
+                </div>
+                <div id="landing-tech" class="why-card tech-stack-card hover-lift">
+                    <span class="tile-kicker" style="color: #ffffff;">UNDER THE HOOD</span>
+                    <h3 class="hover-grow" style="color: #ffffff;">Built for Speed &amp; Concurrency</h3>
+                    <ul class="tech-list">
+                        <li><strong>Backend:</strong> Asynchronous FastAPI on Python 3.12</li>
+                        <li><strong>Database:</strong> PostgreSQL + SQLAlchemy 2.0 (asyncpg) &amp; Alembic</li>
+                        <li><strong>Real-time:</strong> Full-duplex WebSockets per project</li>
+                        <li><strong>Security:</strong> JWT auth, bcrypt hashing &amp; RBAC guards</li>
+                        <li><strong>Frontend:</strong> Vanilla ES6+ JS, CSS tokens &amp; HTML5</li>
+                    </ul>
+                </div>
+            </div>
+
+            <footer id="landing-contact" class="contact-footer">
+                <div class="contact-header">
+                    <div>
+                        <span class="hero-eyebrow">GET IN TOUCH</span>
+                        <h2 class="app-hero-headline hover-text-scale">
+                            let’s build something <span class="script-accent">vivid</span>
+                        </h2>
+                        <p class="muted-text">TeamFlow: the real-time workspace that turns complex projects into fast,
+                            focused execution.</p>
+                    </div>
+                </div>
+                <div class="contact-cards">
+                    <a href="https://github.com/Archismaank" target="_blank" rel="noopener noreferrer"
+                        class="contact-card tile-royal hover-lift">
+                        <span class="tile-kicker">CODE &amp; REPOSITORIES</span>
+                        <strong class="hover-grow">GitHub &rarr; @Archismaank</strong>
+                    </a>
+                    <a href="https://www.linkedin.com/in/archismaan-kashyap-5a34372a2/" target="_blank"
+                        rel="noopener noreferrer" class="contact-card tile-cerise hover-lift">
+                        <span class="tile-kicker">PROFESSIONAL NETWORK</span>
+                        <strong class="hover-grow">LinkedIn &rarr; Archismaan Kashyap</strong>
+                    </a>
+                    <a href="mailto:archismaan1903@gmail.com" class="contact-card tile-coral hover-lift">
+                        <span class="tile-kicker">DIRECT EMAIL</span>
+                        <strong class="hover-grow">archismaan1903@gmail.com</strong>
+                    </a>
+                    <a href="tel:+917348822673" class="contact-card tile-dark-violet hover-lift">
+                        <span class="tile-kicker">PHONE / WHATSAPP</span>
+                        <strong class="hover-grow">+91 7348822673</strong>
+                    </a>
+                </div>
+                <div class="footer-bottom-bar">
+                    <span>© 2026 TeamFlow — Crafted by Archismaan Kashyap</span>
+                    <span class="condensed-tag">PLAN TOGETHER. SHIP FASTER.</span>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <!-- MAIN APPLICATION SHELL (LOGGED IN) -->
+    <div id="app-view" class="app-shell hidden">
+        <div id="sidebar-backdrop" class="sidebar-backdrop hidden"></div>
+
+        <!-- Sidebar -->
+        <aside id="app-sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="brand-mark hover-grow">TEAMFLOW</span>
+                <button id="btn-close-sidebar" class="icon-btn mobile-only" aria-label="Close Menu">&times;</button>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-title-row">
+                    <span>WORKSPACE</span>
+                    <button id="btn-open-ws-modal" class="icon-btn hover-grow" title="New Workspace">+</button>
+                </div>
+                <select id="workspace-select" class="select-input"></select>
+                <button id="btn-open-team-modal" class="btn btn-cerise-outline btn-sm btn-full mt-2">
+                    MANAGE TEAM MEMBERS
+                </button>
+            </div>
+
+            <div class="sidebar-section flex-1">
+                <div class="section-title-row">
+                    <span>PROJECTS</span>
+                    <button id="btn-open-proj-modal" class="icon-btn hover-grow" title="New Project">+</button>
+                </div>
+                <ul id="project-list" class="nav-list"></ul>
+            </div>
+
+            <!-- Clickable User Profile Card -->
+            <div class="sidebar-footer">
+                <div id="btn-open-profile-sidebar" class="user-info user-profile-trigger" title="View Your Profile">
+                    <div id="user-avatar" class="avatar">U</div>
+                    <div class="user-meta">
+                        <div id="user-name" class="user-name">User</div>
+                        <div id="user-role-badge" class="role-pill">MEMBER</div>
+                    </div>
+                </div>
+                <button id="btn-logout" class="btn btn-ghost btn-sm">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Content -->
+        <div class="content-wrapper">
+            <!-- STICKY TOP NAVIGATION -->
+            <header class="sticky-navbar">
+                <div class="nav-left">
+                    <button id="btn-open-sidebar" class="icon-btn mobile-only" aria-label="Open Menu">&#9776;</button>
+                    <span id="breadcrumb-title" class="breadcrumb-text hover-grow">Dashboard</span>
+                    <span id="ws-live-indicator" class="live-badge hidden" title="Real-time sync active">● LIVE
+                        SYNC</span>
+                </div>
+                <div class="nav-right">
+                    <a href="#app-about-footer" class="condensed-link hidden-mobile hover-grow">ABOUT &amp; CONTACT</a>
+                    <button type="button" id="btn-open-profile-nav" class="btn btn-cerise-outline btn-sm">
+                        MY PROFILE
+                    </button>
+                    <button type="button" class="btn-icon-circle theme-toggle-btn" title="Switch Light/Dark Theme">
+                        <span class="theme-icon">☀️</span>
+                    </button>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="empty-state reveal">
+                    <span class="hero-eyebrow">PLAN TOGETHER. SHIP FASTER.</span>
+                    <h2 class="app-hero-headline hover-text-scale">
+                        ready to launch<br />
+                        something <span class="script-accent">bold?</span>
+                    </h2>
+                    <p>Create or select a workspace and project from the sidebar to start orchestrating tasks.</p>
+                </div>
+
+                <!-- USER PROFILE SECTION -->
+                <section id="profile-view" class="hidden">
+                    <div class="project-banner hero-style-banner reveal">
+                        <div class="banner-info">
+                            <span class="hero-eyebrow">MEMBER IDENTITY &amp; WORKSPACES</span>
+                            <h1 class="app-hero-headline hover-text-scale">
+                                <span id="profile-hero-name">Your Profile</span>
+                                <span class="script-accent">account</span>
+                            </h1>
+                            <p id="profile-hero-email" class="banner-desc">user@teamflow.io</p>
+                        </div>
+                        <div class="header-actions">
+                            <button type="button" id="btn-back-to-board" class="btn btn-primary btn-glow">
+                                &larr; BACK TO PROJECT
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vivid Color-Blocked Profile Summary Tiles (Tile 1 opens Workspace Chooser) -->
+                    <div class="vivid-tiles profile-tiles reveal">
+                        <div id="profile-ws-tile-trigger" class="vivid-tile tile-cerise hover-lift clickable-tile"
+                            title="Click to switch & explore workspaces">
+                            <div class="tile-top-flex">
+                                <span class="tile-kicker">01 / WORKSPACES (CLICK TO SWITCH)</span>
+                                <span class="tile-chevron">&#9662;</span>
+                            </div>
+                            <h3 class="hover-grow"><span id="profile-ws-count">0</span> WORKSPACES</h3>
+                            <p>Click here to choose a workspace, inspect its team info, and pick an active project.</p>
+                        </div>
+                        <div class="vivid-tile tile-royal hover-lift">
+                            <span class="tile-kicker">02 / CURRENT ROLE</span>
+                            <h3 class="hover-grow" id="profile-current-role">OWNER</h3>
+                            <p>Permission tier inside <strong id="profile-ws-name">Current Workspace</strong>.</p>
+                        </div>
+                        <div class="vivid-tile tile-coral hover-lift">
+                            <span class="tile-kicker">03 / MEMBER SINCE</span>
+                            <h3 class="hover-grow" id="profile-joined-date">—</h3>
+                            <p>Account ID: <span id="profile-user-id" class="mono-id">—</span></p>
+                        </div>
+                    </div>
+
+                    <!-- EXPANDABLE WORKSPACE CHOOSER & WORKSPACE INFO + PROJECTS -->
+                    <div id="profile-workspace-explorer" class="workspace-explorer-panel hidden">
+                        <div class="progress-header">
+                            <span class="condensed-label">CHOOSE A WORKSPACE</span>
+                            <span class="muted-text" style="font-size: 0.8rem;">Select a card to inspect workspace
+                                details &amp; projects</span>
+                        </div>
+
+                        <!-- Workspace Cards Grid (Same Vivid Card Design) -->
+                        <div id="profile-workspace-cards" class="vivid-tiles profile-ws-grid"></div>
+
+                        <!-- Selected Workspace Info & Active Project Selector -->
+                        <div id="profile-ws-detail-box" class="ws-detail-box">
+                            <div class="ws-detail-header">
+                                <div>
+                                    <span class="hero-eyebrow">SELECTED WORKSPACE OVERVIEW</span>
+                                    <h3 id="ws-detail-title" class="ws-detail-title hover-grow">Workspace Name</h3>
+                                    <p id="ws-detail-meta" class="muted-text">Role: OWNER • Created: —</p>
+                                </div>
+                                <div class="ws-detail-badges">
+                                    <span id="ws-detail-members-badge" class="deadline-pill">0 Members</span>
+                                    <span id="ws-detail-projects-badge" class="deadline-pill">0 Projects</span>
+                                </div>
+                            </div>
+
+                            <div class="progress-header" style="margin-top: 1.1rem;">
+                                <span class="condensed-label">PROJECTS IN THIS WORKSPACE (CLICK TO ACTIVATE &amp;
+                                    OPEN)</span>
+                            </div>
+                            <div id="profile-ws-project-cards" class="profile-project-grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Assigned Tasks Overview -->
+                    <div class="progress-panel reveal mt-3">
+                        <div class="progress-header">
+                            <span class="condensed-label">TASKS ASSIGNED TO YOU IN ACTIVE PROJECT</span>
+                            <strong id="profile-assigned-count" class="percent-readout">0 Tasks</strong>
+                        </div>
+                        <div id="profile-assigned-list" class="assigned-task-list"></div>
+                    </div>
+                </section>
+
+                <!-- PROJECT KANBAN VIEW -->
+                <div id="project-view" class="hidden">
+                    <section class="project-banner hero-style-banner reveal">
+                        <div class="banner-info">
+                            <span class="hero-eyebrow">ACTIVE PROJECT</span>
+                            <h1 class="app-hero-headline hover-text-scale">
+                                <span id="proj-title">Project Name</span>
+                                <span class="script-accent">board</span>
+                            </h1>
+                            <p id="proj-desc" class="banner-desc"></p>
+                        </div>
+                        <div class="header-actions">
+                            <span id="proj-deadline-badge" class="deadline-pill hidden"></span>
+                            <button id="btn-open-task-modal" class="btn btn-primary btn-glow">+ NEW TASK</button>
+                        </div>
+                    </section>
+
+                    <!-- Progress Monitoring Bar & Animated Counters -->
+                    <section class="progress-panel reveal">
+                        <div class="progress-header">
+                            <span class="condensed-label">OVERALL COMPLETION VELOCITY</span>
+                            <strong id="progress-percent" class="percent-readout" data-counter="0"
+                                data-suffix="%">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">TOTAL TASKS</span>
+                                <strong id="stat-total" data-counter="0">0</strong>
+                            </div>
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">TO DO</span>
+                                <strong id="stat-todo" data-counter="0">0</strong>
+                            </div>
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">IN PROGRESS</span>
+                                <strong id="stat-progress" data-counter="0">0</strong>
+                            </div>
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">IN REVIEW</span>
+                                <strong id="stat-review" data-counter="0">0</strong>
+                            </div>
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">DONE</span>
+                                <strong id="stat-done" class="text-success" data-counter="0">0</strong>
+                            </div>
+                            <div class="stat-box hover-lift">
+                                <span class="stat-label">OVERDUE</span>
+                                <strong id="stat-overdue" class="text-danger" data-counter="0">0</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Kanban Board -->
+                    <section id="kanban-board" class="kanban-board reveal">
+                        <div class="kanban-column" data-status="TODO">
+                            <div class="column-header">
+                                <span class="hover-grow">TO DO</span>
+                                <span class="count-badge" id="count-TODO">0</span>
+                            </div>
+                            <div class="kanban-column-body" data-status="TODO"></div>
+                        </div>
+                        <div class="kanban-column" data-status="IN_PROGRESS">
+                            <div class="column-header">
+                                <span class="hover-grow">IN PROGRESS</span>
+                                <span class="count-badge" id="count-IN_PROGRESS">0</span>
+                            </div>
+                            <div class="kanban-column-body" data-status="IN_PROGRESS"></div>
+                        </div>
+                        <div class="kanban-column" data-status="IN_REVIEW">
+                            <div class="column-header">
+                                <span class="hover-grow">IN REVIEW</span>
+                                <span class="count-badge" id="count-IN_REVIEW">0</span>
+                            </div>
+                            <div class="kanban-column-body" data-status="IN_REVIEW"></div>
+                        </div>
+                        <div class="kanban-column" data-status="DONE">
+                            <div class="column-header">
+                                <span class="hover-grow">DONE</span>
+                                <span class="count-badge" id="count-DONE">0</span>
+                            </div>
+                            <div class="kanban-column-body" data-status="DONE"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- BOTTOM ABOUT & CONTACT SECTION (INSIDE WORKSPACE) -->
+                <section id="app-about-footer" class="about-contact-section app-bottom-section reveal">
+                    <div class="section-divider-banner">
+                        <span class="hero-eyebrow">ABOUT TEAMFLOW</span>
+                        <h2 class="app-hero-headline hover-text-scale">
+                            where teams stay aligned<br />
+                            and <span class="script-accent">ship faster.</span>
+                        </h2>
+                        <p class="hero-subcopy" style="margin-top: 0.85rem;">
+                            TeamFlow is a real-time workspace and project management tool for teams that want to move
+                            quickly without losing sight of the plan. It connects the big picture—your roadmap and
+                            milestones—with the daily work of getting tasks done. Every move, update, and conversation
+                            appears instantly for everyone on the project, so nobody has to refresh the page or ask for
+                            a status update.
+                        </p>
+                    </div>
+
+                    <div class="why-grid">
+                        <div class="why-card hover-lift">
+                            <span class="tile-kicker" style="color: var(--cerise);">WHY TEAMFLOW • 01</span>
+                            <h3 class="hover-grow">Workspaces with the right access for everyone</h3>
+                            <p>Give each team its own workspace and control who can do what. Owner, Admin, Member, and
+                                Viewer roles keep collaboration secure and responsibilities clear.</p>
+                        </div>
+                        <div class="why-card hover-lift">
+                            <span class="tile-kicker" style="color: var(--coral-soft);">WHY TEAMFLOW • 02</span>
+                            <h3 class="hover-grow">A Kanban workflow that fits how you work</h3>
+                            <p>Move tasks through To Do, In Progress, In Review, and Done. Set priorities from Low to
+                                Urgent, add due dates, and assign owners so nothing slips through.</p>
+                        </div>
+                        <div class="why-card hover-lift">
+                            <span class="tile-kicker" style="color: var(--success);">WHY TEAMFLOW • 03</span>
+                            <h3 class="hover-grow">Live sync across every screen</h3>
+                            <p>Board changes, task updates, and discussions reach your whole team the moment they
+                                happen, with no manual refreshing.</p>
+                        </div>
+                        <div class="why-card hover-lift">
+                            <span class="tile-kicker" style="color: var(--cerise);">WHY TEAMFLOW • 04</span>
+                            <h3 class="hover-grow">Analytics that flag problems early</h3>
+                            <p>See completion rates, overdue tasks, and workload distribution as they change, so you can
+                                spot bottlenecks before they delay delivery.</p>
+                        </div>
+                        <div class="why-card hover-lift">
+                            <span class="tile-kicker" style="color: var(--coral-soft);">WHY TEAMFLOW • 05</span>
+                            <h3 class="hover-grow">A clean interface built for focus</h3>
+                            <p>Light and dark themes, high-contrast design, and full keyboard navigation keep the
+                                interface clear and clutter-free.</p>
+                        </div>
+                        <div class="why-card tech-stack-card hover-lift">
+                            <span class="tile-kicker" style="color: #ffffff;">UNDER THE HOOD</span>
+                            <h3 class="hover-grow" style="color: #ffffff;">Architecture &amp; Tech Stack</h3>
+                            <ul class="tech-list">
+                                <li><strong>Backend:</strong> Asynchronous FastAPI on Python 3.12, built for high
+                                    concurrency</li>
+                                <li><strong>Database:</strong> PostgreSQL with SQLAlchemy 2.0 (asyncio + asyncpg) &amp;
+                                    Alembic migrations</li>
+                                <li><strong>Real-time:</strong> Full-duplex WebSockets with per-project broadcasting
+                                </li>
+                                <li><strong>Security:</strong> JWT authentication, bcrypt password hashing &amp;
+                                    permission checks</li>
+                                <li><strong>Frontend:</strong> Vanilla ES6+ JavaScript, responsive CSS tokens &amp;
+                                    HTML5</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <footer class="contact-footer">
+                        <div class="contact-header">
+                            <div>
+                                <span class="hero-eyebrow">CONTACT US</span>
+                                <h2 class="app-hero-headline hover-text-scale">
+                                    connect with the <span class="script-accent">creator</span>
+                                </h2>
+                                <p class="muted-text">TeamFlow: the real-time workspace that turns complex projects into
+                                    fast, focused execution.</p>
+                            </div>
+                        </div>
+                        <div class="contact-cards">
+                            <a href="https://github.com/Archismaank" target="_blank" rel="noopener noreferrer"
+                                class="contact-card tile-royal hover-lift">
+                                <span class="tile-kicker">GITHUB</span>
+                                <strong class="hover-grow">github.com/Archismaank &rarr;</strong>
+                            </a>
+                            <a href="https://www.linkedin.com/in/archismaan-kashyap-5a34372a2/" target="_blank"
+                                rel="noopener noreferrer" class="contact-card tile-cerise hover-lift">
+                                <span class="tile-kicker">LINKEDIN</span>
+                                <strong class="hover-grow">Archismaan Kashyap &rarr;</strong>
+                            </a>
+                            <a href="mailto:archismaan1903@gmail.com" class="contact-card tile-coral hover-lift">
+                                <span class="tile-kicker">EMAIL</span>
+                                <strong class="hover-grow">archismaan1903@gmail.com</strong>
+                            </a>
+                            <a href="tel:+917348822673" class="contact-card tile-dark-violet hover-lift">
+                                <span class="tile-kicker">PHONE</span>
+                                <strong class="hover-grow">+91 7348822673</strong>
+                            </a>
+                        </div>
+                        <div class="footer-bottom-bar">
+                            <span>© 2026 TeamFlow — Built by Archismaan Kashyap</span>
+                            <span class="condensed-tag">PLAN TOGETHER. SHIP FASTER.</span>
+                        </div>
+                    </footer>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="btn-back-to-top" class="back-to-top hidden" title="Back to Top"
+        aria-label="Back to Top">&#8593;</button>
+
+    <!-- MODAL: CREATE WORKSPACE -->
+    <div id="modal-workspace" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Create Workspace</h3>
+                <button class="close-modal icon-btn" data-close="modal-workspace">&times;</button>
+            </div>
+            <form id="form-workspace" class="modal-form">
+                <label>Workspace Name
+                    <input type="text" id="ws-name-input" required placeholder="e.g., Creative & Engineering" />
+                </label>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal"
+                        data-close="modal-workspace">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CREATE PROJECT -->
+    <div id="modal-project" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Create Project</h3>
+                <button class="close-modal icon-btn" data-close="modal-project">&times;</button>
+            </div>
+            <form id="form-project" class="modal-form">
+                <label>Project Name
+                    <input type="text" id="proj-name-input" required placeholder="e.g., Vivid Brand Launch" />
+                </label>
+                <label>Description
+                    <textarea id="proj-desc-input" rows="3" placeholder="Brief summary of goals..."></textarea>
+                </label>
+                <label>Target End Date
+                    <input type="date" id="proj-date-input" />
+                </label>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal"
+                        data-close="modal-project">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: TEAM MEMBERS -->
+    <div id="modal-team" class="modal-backdrop hidden">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h3>Workspace Team Members</h3>
+                <button class="close-modal icon-btn" data-close="modal-team">&times;</button>
+            </div>
+            <form id="form-invite" class="invite-row">
+                <input type="email" id="invite-email" required placeholder="Registered user's email..." />
+                <select id="invite-role">
+                    <option value="MEMBER">Member</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="VIEWER">Viewer</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Add Member</button>
+            </form>
+            <div id="team-error" class="alert-error hidden"></div>
+            <ul id="team-member-list" class="member-list"></ul>
+        </div>
+    </div>
+
+    <!-- MODAL: CREATE TASK -->
+    <div id="modal-task" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Create New Task</h3>
+                <button class="close-modal icon-btn" data-close="modal-task">&times;</button>
+            </div>
+            <form id="form-task" class="modal-form">
+                <label>Task Title
+                    <input type="text" id="task-title-input" required
+                        placeholder="e.g., Design landing hero animations" />
+                </label>
+                <label>Description
+                    <textarea id="task-desc-input" rows="3" placeholder="Acceptance criteria or notes..."></textarea>
+                </label>
+                <div class="form-row-2">
+                    <label>Priority
+                        <select id="task-priority-input">
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM" selected>Medium</option>
+                            <option value="HIGH">High</option>
+                            <option value="URGENT">Urgent</option>
+                        </select>
+                    </label>
+                    <label>Status
+                        <select id="task-status-input">
+                            <option value="TODO" selected>To Do</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="IN_REVIEW">In Review</option>
+                            <option value="DONE">Done</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-row-2">
+                    <label>Assignee
+                        <select id="task-assignee-input">
+                            <option value="">Unassigned</option>
+                        </select>
+                    </label>
+                    <label>Due Date
+                        <input type="datetime-local" id="task-due-input" />
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal" data-close="modal-task">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: TASK DETAILS & COMMENTS -->
+    <div id="modal-task-detail" class="modal-backdrop hidden">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h3 id="detail-task-title">Task Title</h3>
+                <button class="close-modal icon-btn" data-close="modal-task-detail">&times;</button>
+            </div>
+            <p id="detail-task-desc" class="muted-text" style="margin-bottom: 1rem;"></p>
+
+            <div class="detail-controls form-row-3">
+                <label>Status
+                    <select id="detail-status-select">
+                        <option value="TODO">To Do</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="IN_REVIEW">In Review</option>
+                        <option value="DONE">Done</option>
+                    </select>
+                </label>
+                <label>Priority
+                    <select id="detail-priority-select">
+                        <option value="LOW">Low</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="HIGH">High</option>
+                        <option value="URGENT">Urgent</option>
+                    </select>
+                </label>
+                <label>Assignee
+                    <select id="detail-assignee-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="detail-meta-bar">
+                <span id="detail-due-text" class="muted-text">No deadline</span>
+                <button type="button" id="btn-delete-task" class="btn btn-danger btn-sm">Delete Task</button>
+            </div>
+
+            <hr class="divider" />
+
+            <h4 style="margin-bottom: 0.6rem; font-size: 0.95rem;">Comments &amp; Collaboration</h4>
+            <div id="comment-list" class="comment-list"></div>
+            <form id="form-comment" class="comment-form">
+                <input type="text" id="comment-input" required placeholder="Write a comment or update..." />
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+
+</html>
