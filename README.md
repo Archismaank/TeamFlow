@@ -1,3 +1,4 @@
+
 # ⚡ TeamFlow — Real-Time Collaborative Workspace & Project Management Engine
 
 > **High-velocity collaborative workspace designed to streamline sprint execution, organize multi-tenant projects, and synchronize Kanban boards in real time.**
@@ -7,7 +8,8 @@
 ## 📖 Overview
 
 **TeamFlow** bridges the gap between high-level project roadmaps and day-to-day agile execution. It brings your entire team into a unified, high-contrast, real-time workspace:
-- Create and organize multi-tenant workspaces with granular **Role-Based Access Control (RBAC)**.
+
+- Create and organize multiple independent team workspaces with granular **Role-Based Access Control (RBAC)**.
 - Manage initiatives across milestone-driven projects with live completion analytics.
 - Coordinate tasks effortlessly on an interactive **Kanban Board** with drag-and-drop state transitions.
 - Collaborate synchronously with teammate status updates and discussions powered by **native WebSockets**.
@@ -18,29 +20,50 @@
 ## ✨ Key Features
 
 ### 🏢 Multi-Tenant Workspaces & RBAC
+
 - Create multiple independent team workspaces.
 - Invite members by email and assign granular permissions: **Owner**, **Admin**, **Member**, and **Viewer**.
 - Enforce strict route-level permission dependencies and cascade deletions.
 
 ### 📊 Project Tracking & Live Progress Metrics
+
 - Group work into projects with descriptions and target completion deadlines.
-- Real-time computation of project health: total tasks, status stage distribution, overdue task counts, and completion percentage.
+- Real-time computation of project health:
+  - Total tasks.
+  - Status stage distribution.
+  - Overdue task counts.
+  - Completion percentage.
 
 ### 📋 Interactive Kanban Board
-- Drag-and-drop tasks across four distinct stages: `To Do`, `In Progress`, `In Review`, and `Done`.
-- Prioritize tasks with color-coded urgency: `LOW`, `MEDIUM`, `HIGH`, and `URGENT`.
+
+- Drag-and-drop tasks across four distinct stages:
+  - `To Do`
+  - `In Progress`
+  - `In Review`
+  - `Done`
+- Prioritize tasks with color-coded urgency:
+  - `LOW`
+  - `MEDIUM`
+  - `HIGH`
+  - `URGENT`
 - Assign teammates and set deadline timestamps.
 
 ### ⚡ Real-Time WebSocket Synchronization
-- Dedicated per-project WebSocket channels (`/api/ws/projects/{project_id}`).
+
+- Dedicated per-project WebSocket channels: `/api/ws/projects/{project_id}`.
 - Instant state propagation: when a teammate creates, edits, moves a task, or posts a comment, all connected clients update immediately without a page refresh.
 
 ### 💬 In-Task Collaboration
+
 - Built-in contextual commenting stream for continuous discussion and feedback on each task.
+- Keep conversations organized around individual tasks.
 
 ### 🔒 Enterprise-Grade Security
+
 - Password hashing using `Passlib` and `Bcrypt`.
 - Stateless authentication using cryptographically signed **JWT (JSON Web Tokens)**.
+- Role-based access control for workspace operations.
+- Protected API endpoints using authentication and authorization dependencies.
 
 ---
 
@@ -48,13 +71,13 @@
 
 | Layer | Technology | Details |
 | :--- | :--- | :--- |
-| **Backend Framework** | [FastAPI](https://fastapi.tiangolo.com/) (Python 3.12) | Asynchronous RESTful API, dependency injection, and native WebSockets. |
-| **Database & ORM** | [PostgreSQL](https://www.postgresql.org/) + [SQLAlchemy 2.0](https://www.sqlalchemy.org/) | Async ORM powered by the `asyncpg` driver for maximum I/O concurrency. |
-| **Database Migrations**| [Alembic](https://alembic.sqlalchemy.org/) | Version-controlled, reproducible schema migrations. |
-| **Real-Time Pub/Sub** | Native WebSockets | In-memory `ProjectConnectionManager` for broadcast messaging. |
-| **Authentication** | [python-jose](https://github.com/mpdavis/python-jose) + [passlib](https://passlib.readthedocs.io/) | JWT bearer tokens & Bcrypt password hashing. |
-| **Frontend** | Vanilla ES6+ JavaScript, HTML5, CSS3 | Custom CSS variable design tokens, responsive layout, Dark/Light modes. |
-| **ASGI Server** | [Uvicorn](https://www.uvicorn.org/) | Lightning-fast ASGI web server implementation. |
+| **Backend Framework** | FastAPI (Python 3.12) | Asynchronous RESTful API, dependency injection, and native WebSockets. |
+| **Database & ORM** | PostgreSQL + SQLAlchemy 2.0 | Async ORM powered by the `asyncpg` driver for I/O concurrency. |
+| **Database Migrations** | Alembic | Version-controlled, reproducible schema migrations. |
+| **Real-Time Communication** | Native WebSockets | In-memory `ProjectConnectionManager` for broadcast messaging. |
+| **Authentication** | python-jose + Passlib | JWT bearer tokens and Bcrypt password hashing. |
+| **Frontend** | Vanilla ES6+ JavaScript, HTML5, CSS3 | Custom CSS variable design tokens, responsive layout, and Dark/Light modes. |
+| **ASGI Server** | Uvicorn | ASGI web server implementation. |
 
 ---
 
@@ -62,34 +85,38 @@
 
 ```mermaid
 flowchart TD
-    subgraph ClientLayer ["Client Layer (Browser)"]
-        UI["Web UI (HTML5, CSS3, ES6+ JS)"]
+    subgraph ClientLayer["Client Layer - Browser"]
+        UI["Web UI - HTML5, CSS3, ES6+ JS"]
         WS_Client["WebSocket Client"]
         HTTP_Client["Fetch REST API Client"]
     end
 
-    subgraph ServerLayer ["Application Layer (FastAPI / Uvicorn)"]
-        Router["FastAPI App Core & Static Files Mount"]
-        AuthMiddleware["JWT Auth & RBAC Guard"]
-        APIs["API Routers: Auth | Workspaces | Projects | Tasks"]
+    subgraph ServerLayer["Application Layer - FastAPI / Uvicorn"]
+        Router["FastAPI App Core and Static Files"]
+        AuthMiddleware["JWT Authentication and RBAC Guard"]
+        APIs["API Routers: Auth, Workspaces, Projects, Tasks"]
         WS_Manager["WebSocket Connection Manager"]
     end
 
-    subgraph DataLayer ["Data & Persistence Layer"]
-        AsyncSession["SQLAlchemy 2.0 (AsyncSession / asyncpg)"]
+    subgraph DataLayer["Data and Persistence Layer"]
+        AsyncSession["SQLAlchemy 2.0 AsyncSession / asyncpg"]
         Postgres[("PostgreSQL Database")]
     end
 
     UI --> HTTP_Client
     UI --> WS_Client
-    HTTP_Client -->|HTTP / REST (Bearer JWT)| Router
-    WS_Client <-->|Full-Duplex WS Connection| WS_Manager
+
+    HTTP_Client -->|"HTTP REST - Bearer JWT"| Router
+    WS_Client <-->|"Full-Duplex WebSocket"| WS_Manager
+
     Router --> AuthMiddleware
     AuthMiddleware --> APIs
+
     APIs --> AsyncSession
-    AsyncSession <-->|SQL Queries / Transactions| Postgres
-    APIs -->|Broadcast Events| WS_Manager
-    WS_Manager -->|Live Sync Events| WS_Client
+    AsyncSession <-->|"SQL Queries and Transactions"| Postgres
+
+    APIs -->|"Broadcast Events"| WS_Manager
+    WS_Manager -->|"Live Sync Events"| WS_Client
 ```
 
 ---
@@ -167,43 +194,43 @@ erDiagram
 
 ```text
 TeamFlow/
-├── alembic/                 # Database migration scripts & environment
-│   ├── versions/            # Migration revisions (initial schema, etc.)
-│   └── env.py               # Async Alembic runner
+├── alembic/
+│   ├── versions/              # Migration revision scripts
+│   └── env.py                 # Async Alembic runner
 ├── app/
-│   ├── api/                 # REST API & WebSocket route handlers
-│   │   ├── auth.py          # User registration, login, JWT token issue
-│   │   ├── workspaces.py    # Workspace CRUD, membership & role management
-│   │   ├── projects.py      # Project tracking, progress analytics
-│   │   └── tasks.py         # Task CRUD, status updates, comments, WS endpoint
-│   ├── core/                # Application configuration & core utilities
-│   │   ├── config.py        # Pydantic BaseSettings (.env loading)
-│   │   ├── database.py      # Async SQLAlchemy engine & session factory
-│   │   ├── permissions.py   # RBAC & workspace membership security guards
-│   │   ├── security.py      # Bcrypt password hashing & JWT token verification
-│   │   └── ws.py            # Central WebSocket ProjectConnectionManager
-│   ├── models/              # SQLAlchemy ORM declarative models
-│   │   └── models.py        # Users, Workspaces, Members, Projects, Tasks, Comments
-│   ├── schemas/             # Pydantic schemas for request/response validation
-│   │   ├── auth.py
-│   │   ├── workspace.py
-│   │   ├── project.py
-│   │   └── task.py
-│   └── main.py              # FastAPI application factory & static files mount
-├── frontend/                # Single-Page Application (SPA) client
+│   ├── api/
+│   │   ├── auth.py            # Registration, login, JWT issuance
+│   │   ├── workspaces.py      # Workspace CRUD and membership management
+│   │   ├── projects.py        # Project CRUD and progress analytics
+│   │   └── tasks.py           # Task CRUD, comments, WebSocket endpoint
+│   ├── core/
+│   │   ├── config.py          # Pydantic settings and environment loading
+│   │   ├── database.py        # Async SQLAlchemy engine and sessions
+│   │   ├── permissions.py     # RBAC and workspace permission guards
+│   │   ├── security.py        # Password hashing and JWT verification
+│   │   └── ws.py              # ProjectConnectionManager
+│   ├── models/
+│   │   └── models.py          # SQLAlchemy ORM models
+│   ├── schemas/
+│   │   ├── auth.py            # Authentication schemas
+│   │   ├── workspace.py       # Workspace schemas
+│   │   ├── project.py         # Project schemas
+│   │   └── task.py            # Task and comment schemas
+│   └── main.py                # FastAPI application entry point
+├── frontend/
 │   ├── css/
-│   │   └── styles.css       # Editorial styling, animations, dark/light theme
+│   │   └── styles.css         # Responsive UI and theme styling
 │   ├── js/
-│   │   ├── api.js           # REST API client & auth token interceptor
-│   │   ├── app.js           # View router, state management, modal controllers
-│   │   ├── board.js         # Interactive Kanban drag-and-drop & WebSocket listener
-│   │   └── ui.js            # Toast notifications, theme toggles, helpers
-│   └── index.html           # Main application HTML interface
-├── .env.example             # Template for environment variables
-├── alembic.ini              # Alembic migration configuration
-├── pyproject.toml           # Project dependencies & metadata
-├── requirements.txt         # Pip dependency manifest
-└── README.md                # Project documentation
+│   │   ├── api.js             # REST API client and auth handling
+│   │   ├── app.js             # View routing and state management
+│   │   ├── board.js           # Kanban drag-and-drop and WebSocket listener
+│   │   └── ui.js              # Toasts, theme toggles, UI helpers
+│   └── index.html             # Main application interface
+├── .env.example               # Environment variable template
+├── alembic.ini                # Alembic configuration
+├── pyproject.toml             # Project dependencies and metadata
+├── requirements.txt           # Pip dependency manifest
+└── README.md                  # Project documentation
 ```
 
 ---
@@ -211,66 +238,84 @@ TeamFlow/
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
-- **Python 3.12+**
-- **PostgreSQL** (running locally or via Docker/cloud provider)
-- **uv** (recommended) or standard `pip`
 
----
+Make sure you have the following installed:
+
+- **Python 3.12+**
+- **PostgreSQL** (running locally or through Docker/cloud provider)
+- **Git**
+- **uv** (recommended) or standard `pip`
 
 ### 2. Clone and Setup Environment
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/TeamFlow.git
+
+# Navigate into the project
 cd TeamFlow
 
-# Create and activate a virtual environment
+# Create a virtual environment
 python -m venv .venv
 
-# On Windows:
+# Activate on Windows
 .venv\Scripts\activate
 
-# On macOS/Linux:
+# Activate on macOS/Linux
 source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-# OR with uv:
-uv pip install -r requirements.txt
 ```
 
----
+Alternatively, using `uv`:
+
+```bash
+uv venv
+uv pip install -r requirements.txt
+```
 
 ### 3. Configure Environment Variables
 
 Create a `.env` file in the project root:
 
 ```env
-# Database connection (PostgreSQL + asyncpg driver)
+# PostgreSQL connection
 DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/teamflow
 
-# Cryptographically secure random secret key for JWT signing
-SECRET_KEY=e83a9f4c0b62d85b1a774620f49a62c5c46e3d12f1e6b8c9d0124a5e3f789ab1
+# JWT configuration
+SECRET_KEY=your_generated_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 ```
 
-> **Tip:** You can generate a fresh secret key anytime using:  
-> `python -c "import secrets; print(secrets.token_hex(32))"`
+Generate a secure secret key using:
 
----
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
 
-### 4. Run Database Migrations
+**Important:** Never commit your actual `.env` file or production secret keys to GitHub.
 
-Apply the initial schema to your PostgreSQL database using Alembic:
+### 4. Create the PostgreSQL Database
+
+Open PostgreSQL and create the database:
+
+```sql
+CREATE DATABASE teamflow;
+```
+
+Ensure your PostgreSQL username and password match the `DATABASE_URL` in your `.env` file.
+
+### 5. Run Database Migrations
+
+Apply the database schema using Alembic:
 
 ```bash
 alembic upgrade head
 ```
 
----
-
-### 5. Launch the Application
+### 6. Launch the Application
 
 Start the Uvicorn ASGI server:
 
@@ -278,61 +323,67 @@ Start the Uvicorn ASGI server:
 uvicorn app.main:app --reload --port 8000
 ```
 
-- 🌐 **Web Interface:** Open [http://localhost:8000](http://localhost:8000) in your browser.
-- 📚 **Interactive API Docs (Swagger UI):** Open [http://localhost:8000/docs](http://localhost:8000/docs).
-- 📖 **Alternative API Docs (ReDoc):** Open [http://localhost:8000/redoc](http://localhost:8000/redoc).
+Open the following URLs in your browser:
+
+- 🌐 **Web Interface:** http://localhost:8000
+- 📚 **Swagger API Documentation:** http://localhost:8000/docs
+- 📖 **ReDoc API Documentation:** http://localhost:8000/redoc
 
 ---
 
 ## 📡 REST API Reference
 
 ### Authentication (`/api/auth`)
+
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Register a new user account |
-| `POST` | `/api/auth/login` | Authenticate with credentials and receive a JWT access token |
-| `GET` | `/api/auth/me` | Fetch currently authenticated user profile |
+| POST | `/api/auth/register` | Register a new user account. |
+| POST | `/api/auth/login` | Authenticate and receive a JWT access token. |
+| GET | `/api/auth/me` | Fetch the currently authenticated user profile. |
 
 ### Workspaces (`/api/workspaces`)
+
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/workspaces` | Create a new workspace (creator automatically becomes `OWNER`) |
-| `GET` | `/api/workspaces` | List all workspaces the current user belongs to |
-| `GET` | `/api/workspaces/{id}/members` | List members of a workspace |
-| `POST` | `/api/workspaces/{id}/members` | Invite a member by email and assign role (`ADMIN`, `MEMBER`, `VIEWER`) |
-| `PATCH`| `/api/workspaces/{id}/members/{user_id}` | Update a member's role (`OWNER`/`ADMIN` only) |
-| `DELETE`| `/api/workspaces/{id}/members/{user_id}` | Remove a member from the workspace (`OWNER`/`ADMIN` only) |
+| POST | `/api/workspaces` | Create a workspace; creator becomes OWNER. |
+| GET | `/api/workspaces` | List workspaces the current user belongs to. |
+| GET | `/api/workspaces/{id}/members` | List workspace members. |
+| POST | `/api/workspaces/{id}/members` | Invite a member by email and assign a role. |
+| PATCH | `/api/workspaces/{id}/members/{user_id}` | Update a member's role. |
+| DELETE | `/api/workspaces/{id}/members/{user_id}` | Remove a member from the workspace. |
 
 ### Projects (`/api`)
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `POST` | `/api/workspaces/{id}/projects` | Create a new project within a workspace |
-| `GET` | `/api/workspaces/{id}/projects` | List projects with real-time completion progress metrics |
-| `GET` | `/api/projects/{id}` | Get detailed project view with task lists and progress |
-| `PATCH`| `/api/projects/{id}` | Update project metadata or target end date |
-| `DELETE`| `/api/projects/{id}` | Delete project and cascade-delete all associated tasks |
 
-### Tasks & Real-Time Sync (`/api`)
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/projects/{id}/tasks` | Create a task and broadcast event to all connected peers |
-| `PATCH`| `/api/tasks/{id}` | Update status (`TODO`, `IN_PROGRESS`, `IN_REVIEW`, `DONE`), priority, or details |
-| `DELETE`| `/api/tasks/{id}` | Delete task and broadcast deletion |
-| `POST` | `/api/tasks/{id}/comments` | Post a comment on a task card and broadcast to project |
-| `WS` | `/api/ws/projects/{id}` | Full-duplex WebSocket connection for real-time live board synchronization |
+| POST | `/api/workspaces/{id}/projects` | Create a project within a workspace. |
+| GET | `/api/workspaces/{id}/projects` | List projects with completion metrics. |
+| GET | `/api/projects/{id}` | Retrieve project details and tasks. |
+| PATCH | `/api/projects/{id}` | Update project details or target end date. |
+| DELETE | `/api/projects/{id}` | Delete a project and associated tasks. |
+
+### Tasks & Real-Time Synchronization (`/api`)
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | `/api/projects/{id}/tasks` | Create a task and broadcast an event. |
+| PATCH | `/api/tasks/{id}` | Update task details, status, priority, or assignment. |
+| DELETE | `/api/tasks/{id}` | Delete a task and broadcast deletion. |
+| POST | `/api/tasks/{id}/comments` | Add a comment and broadcast it to project members. |
+| WS | `/api/ws/projects/{id}` | Establish a full-duplex WebSocket connection for live board synchronization. |
 
 ---
 
 ## 🔮 Roadmap / Future Enhancements
 
-- [ ] **Cloud File Attachments**: Asset uploads and design attachments powered by Amazon S3 / Cloudflare R2.
-- [ ] **Sprint Burndown & Gantt Timeline**: Dynamic charts tracking team velocity and milestones.
-- [ ] **Push & Email Alerts**: Real-time notifications for task assignments and upcoming deadlines.
-- [ ] **GitHub / GitLab Integration**: Automatically transition tasks to `Done` upon pull request merge.
-- [ ] **Mobile Application**: Native React Native / Flutter client with offline synchronization.
+- [ ] **Cloud File Attachments:** Asset uploads and design attachments powered by Amazon S3 or Cloudflare R2.
+- [ ] **Sprint Burndown & Gantt Timeline:** Dynamic charts tracking team velocity and milestones.
+- [ ] **Push & Email Alerts:** Notifications for task assignments and upcoming deadlines.
+- [ ] **GitHub / GitLab Integration:** Automatically transition tasks to Done upon pull request merge.
+- [ ] **Mobile Application:** Native React Native or Flutter client with offline synchronization.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
