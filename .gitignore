@@ -10,3 +10,7 @@ wheels/
 .venv
 
 .env
+
+TeamFlow_Project_Report_Slides.docx/
+
+generate_docx.py
